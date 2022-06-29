@@ -1,8 +1,11 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework.authtoken.models import Token
+
+from users.models import Profile
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -42,3 +45,24 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return user
 
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(required=True, write_only=True)
+
+    def validate(self, attrs):
+        user = authenticate(**attrs)
+        if user:
+            token = Token.objects.get(user=user)
+            return token
+        raise serializers.ValidationError(
+            {
+                "error": "비밀번호와 아이디를 확인하세요."
+            }
+        )
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['nickname', 'position', 'subjects', 'image']
