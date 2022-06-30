@@ -20,6 +20,7 @@ class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
     def post(self, request):
+
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         token = serializer.validated_data
@@ -31,3 +32,4 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     permission_classes = [CustomReadOnly]
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
