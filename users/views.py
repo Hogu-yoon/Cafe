@@ -10,6 +10,7 @@ from users.permissions import CustomReadOnly
 from users.serializers import RegisterSerializer, LoginSerializer, ProfileSerializer
 from rest_framework import status
 
+from django.contrib import auth
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -20,11 +21,10 @@ class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
     def post(self, request):
-
-        serializer = self.get_serializer(data=request.data)
+        serializer = self.get_serializer(data=request.data,context={'request':request})
         serializer.is_valid(raise_exception=True)
         token = serializer.validated_data
-        return Response({"token": token.key}, status=status.HTTP_200_OK)
+        return Response({"token": token.key,"UserID":token.user_id}, status=status.HTTP_200_OK)
 
 
 class ProfileView(generics.RetrieveUpdateAPIView):
@@ -32,4 +32,5 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     permission_classes = [CustomReadOnly]
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
 
