@@ -1,4 +1,4 @@
-###DRF Project
+### DRF Project
 
 1. 회원가입 유저 구현
 2. 로그인 구현<토큰발행>
@@ -10,6 +10,6 @@
 8. 제품 리뷰 기능 생성
 
 
-###API 명세서
+### API 명세서
 
 https://sheer-giver-1d2.notion.site/6a20c06ec18f472c9170e8b4f5aa8064?v=67a17d503b804e18ba228050289ca3cb
