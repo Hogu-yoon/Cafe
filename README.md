@@ -13,3 +13,6 @@
 ### API 명세서
 
 https://sheer-giver-1d2.notion.site/6a20c06ec18f472c9170e8b4f5aa8064?v=67a17d503b804e18ba228050289ca3cb
+
+
+이슈 번호를 커밋메세지에 작성
