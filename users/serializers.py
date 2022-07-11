@@ -7,7 +7,9 @@ from rest_framework.authtoken.models import Token
 
 from users.models import Profile
 
-
+'''
+회원 가입 양식 기본 장고 유저 모델에 profile를 추가해서 사용
+'''
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required=True,
@@ -45,7 +47,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return user
 
-
+'''
+로그인 양식 및 토큰 반환.
+'''
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True, write_only=True)
@@ -60,7 +64,9 @@ class LoginSerializer(serializers.Serializer):
                 "error": "비밀번호와 아이디를 확인하세요."
             }
         )
-
+'''
+회원 프로필 양식(유저와 원투원관계,)
+'''
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:

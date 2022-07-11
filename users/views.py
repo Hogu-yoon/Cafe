@@ -12,11 +12,18 @@ from rest_framework import status
 
 from django.contrib import auth
 
+'''
+회원 생성 뷰 (post 처리기능) 
+'''
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
 
 
+'''
+회원 로그인 뷰 (generic API 뷰를 사용해서 로그인 부분 처리)
+회원이 맞다면 해당 토큰으로 반환
+'''
 class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
@@ -26,7 +33,10 @@ class LoginView(generics.GenericAPIView):
         token = serializer.validated_data
         return Response({"token": token.key,"UserID":token.user_id}, status=status.HTTP_200_OK)
 
+'''
+회원 상세 페이지 단건 조회 및 수정 기능(GET 과 PUT,PATH 처리)
 
+'''
 class ProfileView(generics.RetrieveUpdateAPIView):
     # 필요한 퍼미션은 해당 apiView서 생성한다
     permission_classes = [CustomReadOnly]

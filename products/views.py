@@ -18,6 +18,10 @@ from users.models import Profile
 
 from rest_framework import status
 
+'''
+제품 CRUD 
+'''
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -35,6 +39,11 @@ class ProductViewSet(viewsets.ModelViewSet):
         serializer.save(seller=self.request.user, profile=profile)
 
 
+'''
+제품 찜하기 기능
+'''
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def wish_product(request, pk):
@@ -45,6 +54,11 @@ def wish_product(request, pk):
         product.wish.add(request.user)
 
     return Response(status=status.HTTP_200_OK)
+
+
+'''
+제품 후기 CRUD + permission
+'''
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -58,4 +72,4 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         profile = Profile.objects.get(user=self.request.user)
-        serializer.save(author=self.request.user,profile=profile)
+        serializer.save(author=self.request.user, profile=profile)

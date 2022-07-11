@@ -6,6 +6,7 @@ from django.utils import timezone
 
 from users.models import Profile
 
+'''제품 모델'''
 
 class Product(models.Model):
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products_user')
@@ -17,7 +18,7 @@ class Product(models.Model):
     wish = models.ManyToManyField(User, related_name='products_wish', blank=True)
     published_date = models.DateTimeField(default=timezone.now)
 
-
+''' 제품 후기 모델'''
 class Review(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
